@@ -6,6 +6,10 @@ import AuthLayout from "../Layouts/AuthLayout";
 import Login from "../Pages/Auth/Login/Login";
 import Register from "../Pages/Auth/Register/Register";
 import SendParcel from "../Pages/SendParcel/SendParcel";
+import MyParcel from "../Pages/MyParcel/MyParcel";
+import Dashboard from "../Layouts/Dashboard";
+import PaymentSuucess from "../payment/paymentSuucess";
+import PaymentCancel from "../payment/PaymentCancel";
 
 export const router = createBrowserRouter([
   {
@@ -24,6 +28,7 @@ export const router = createBrowserRouter([
       {
         path: "/SendParcel",
         element: <SendParcel></SendParcel>,
+        loader: () => fetch("./serviceCenter.json").then((res) => res.json()),
       },
     ],
   },
@@ -38,6 +43,24 @@ export const router = createBrowserRouter([
       {
         path: "/register",
         Component: Register,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard></Dashboard>,
+    children: [
+      {
+        path: "myParcel",
+        element: <MyParcel></MyParcel>,
+      },
+      {
+        path: "payment-success",
+        element: <PaymentSuucess></PaymentSuucess>,
+      },
+      {
+        path: "payment-cancel",
+        element: <PaymentCancel></PaymentCancel>,
       },
     ],
   },
