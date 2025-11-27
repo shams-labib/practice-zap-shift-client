@@ -8,8 +8,9 @@ import Register from "../Pages/Auth/Register/Register";
 import SendParcel from "../Pages/SendParcel/SendParcel";
 import MyParcel from "../Pages/MyParcel/MyParcel";
 import Dashboard from "../Layouts/Dashboard";
-import PaymentSuucess from "../payment/paymentSuucess";
 import PaymentCancel from "../payment/PaymentCancel";
+import PaymentSuucess from "../payment/PaymentSuucess";
+import PaymentHistory from "../Pages/Payment History/PaymentHistory";
 
 export const router = createBrowserRouter([
   {
@@ -61,6 +62,10 @@ export const router = createBrowserRouter([
       {
         path: "payment-cancel",
         element: <PaymentCancel></PaymentCancel>,
+      },
+      {
+        path: "payment-history",
+        element: <PaymentHistory></PaymentHistory>,
       },
     ],
   },

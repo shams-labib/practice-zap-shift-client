@@ -86,6 +86,21 @@ const Dashboard = () => {
                 </button>
               </Link>
             </li>
+            {/* Payment History */}
+            <li>
+              <Link to={"/dashboard/payment-history"}>
+                {" "}
+                <button
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  data-tip="payment-history"
+                >
+                  <CiDeliveryTruck size={20} />
+                  <span className="is-drawer-close:hidden">
+                    Payment History
+                  </span>
+                </button>
+              </Link>
+            </li>
 
             {/* List item */}
             <li>
