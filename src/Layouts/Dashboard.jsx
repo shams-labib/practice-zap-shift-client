@@ -1,5 +1,6 @@
 import React from "react";
 import { CiDeliveryTruck } from "react-icons/ci";
+import { MdHistory } from "react-icons/md";
 import { Link, Outlet } from "react-router";
 
 const Dashboard = () => {
@@ -94,7 +95,7 @@ const Dashboard = () => {
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                   data-tip="payment-history"
                 >
-                  <CiDeliveryTruck size={20} />
+                  <MdHistory size={20} />
                   <span className="is-drawer-close:hidden">
                     Payment History
                   </span>

@@ -3,9 +3,11 @@ import useAuth from "../../Firebase/Context/useAuth/useAuth";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import SocialLogin from "../Social Login/SocialLogin";
+import useAxiosSecure from "../../../Hooks/AxiosSecure/useAxiosSecure";
 
 const Register = () => {
   const { createUser, updateUserProfile } = useAuth();
+  const axiosSecure = useAxiosSecure();
 
   const {
     register,
@@ -17,7 +19,7 @@ const Register = () => {
     const profileImg = data.photo[0];
 
     createUser(data.email, data.password)
-      .then((userData) => {
+      .then(() => {
         const formData = new FormData();
         formData.append("image", profileImg);
 
@@ -29,11 +31,22 @@ const Register = () => {
             formData
           )
           .then((res) => {
-            const url = res.data.data.url;
+            const photoURL = res.data.data.url;
+
+            const userInfo = {
+              email: data.email,
+              displayName: data.name,
+              photoURL: photoURL,
+            };
+            axiosSecure.post("/users", userInfo).then((res) => {
+              if (res.data.insertedId) {
+                console.log("User added to the database");
+              }
+            });
 
             const updateUser = {
               displayName: data.name,
-              photoURL: url,
+              photoURL: photoURL,
             };
 
             updateUserProfile(updateUser);
@@ -41,7 +54,6 @@ const Register = () => {
           .catch((err) => {
             console.log(err);
           });
-        console.log(userData.user);
       })
       .catch((err) => {
         console.log(err);
