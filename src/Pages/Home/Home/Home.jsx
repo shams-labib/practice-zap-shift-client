@@ -3,7 +3,7 @@ import Banner from "../Banner/Banner";
 import Brands from "../Brands/Brands";
 import Reviews from "../Reviews/Reviews";
 
-const reviewPromise = fetch("./reviews.json").then((res) => res.json());
+const reviewPromise = fetch("/reviews.json").then((res) => res.json());
 
 const Home = () => {
   return (

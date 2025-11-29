@@ -4,10 +4,12 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import SocialLogin from "../Social Login/SocialLogin";
 import useAxiosSecure from "../../../Hooks/AxiosSecure/useAxiosSecure";
+import { useNavigate } from "react-router";
 
 const Register = () => {
   const { createUser, updateUserProfile } = useAuth();
   const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -54,6 +56,7 @@ const Register = () => {
           .catch((err) => {
             console.log(err);
           });
+        navigate("/");
       })
       .catch((err) => {
         console.log(err);

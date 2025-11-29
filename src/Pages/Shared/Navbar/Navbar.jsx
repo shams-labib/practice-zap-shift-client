@@ -17,6 +17,9 @@ const Navbar = () => {
       <li>
         <NavLink to={"/coverage"}>Coverage</NavLink>
       </li>
+      <li>
+        <NavLink to={"/rider"}>Be a Rider</NavLink>
+      </li>
 
       {user && (
         <div className="flex">
@@ -73,12 +76,16 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
       <div className="navbar-end">
+        <Link to={"/rider"} className="btn btn-primary mr-2 text-black">
+          Be a Rider
+        </Link>
+
         {user ? (
-          <Link onClick={handleSignOut} className="btn bg-primary">
+          <Link onClick={handleSignOut} className="btn">
             Log Out
           </Link>
         ) : (
-          <Link to={"/login"} className="btn bg-primary">
+          <Link to={"/login"} className="btn ">
             Log In
           </Link>
         )}

@@ -1,9 +1,13 @@
 import React from "react";
 import { CiDeliveryTruck } from "react-icons/ci";
+import { FaMotorcycle, FaUser, FaUsers } from "react-icons/fa";
 import { MdHistory } from "react-icons/md";
 import { Link, Outlet } from "react-router";
+import useRole from "../Hooks/useRole/useRole";
 
 const Dashboard = () => {
+  const { role } = useRole();
+
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
@@ -47,7 +51,7 @@ const Dashboard = () => {
         ></label>
         <div className="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-64">
           {/* Sidebar content here */}
-          <ul className="menu w-full grow">
+          <ul className="menu w-full grow space-y-5">
             {/* List item */}
             <li>
               <Link
@@ -87,21 +91,52 @@ const Dashboard = () => {
                 </button>
               </Link>
             </li>
-            {/* Payment History */}
-            <li>
-              <Link to={"/dashboard/payment-history"}>
-                {" "}
-                <button
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                  data-tip="payment-history"
-                >
-                  <MdHistory size={20} />
-                  <span className="is-drawer-close:hidden">
-                    Payment History
-                  </span>
-                </button>
-              </Link>
-            </li>
+            {role === "admin" && (
+              <>
+                {/* Payment History */}
+                <li>
+                  <Link to={"/dashboard/payment-history"}>
+                    {" "}
+                    <button
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="payment-history"
+                    >
+                      <MdHistory size={20} />
+                      <span className="is-drawer-close:hidden">
+                        Payment History
+                      </span>
+                    </button>
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Approved Riders"
+                    to={"/dashboard/approve-riders"}
+                  >
+                    <FaMotorcycle size={17} />
+
+                    <span className="is-drawer-close:hidden">
+                      Approved Riders
+                    </span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Users Management"
+                    to={"/dashboard/users-management"}
+                  >
+                    <FaUsers size={17} />
+
+                    <span className="is-drawer-close:hidden">
+                      Users Management
+                    </span>
+                  </Link>
+                </li>
+              </>
+            )}
 
             {/* List item */}
             <li>

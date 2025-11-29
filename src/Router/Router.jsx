@@ -11,6 +11,11 @@ import Dashboard from "../Layouts/Dashboard";
 import PaymentCancel from "../payment/PaymentCancel";
 import PaymentSuucess from "../payment/PaymentSuucess";
 import PaymentHistory from "../Pages/Payment History/PaymentHistory";
+import RiderPage from "../Pages/Rider/RiderPage";
+import ApproveRiders from "../Pages/Dashboard/ApprovedRiders/ApprovedRiders";
+import UsersManagement from "../Pages/Dashboard/UsersManagement/UsersManagement";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import AdminRoute from "../PrivateRoute/AdminRoute";
 
 export const router = createBrowserRouter([
   {
@@ -22,6 +27,11 @@ export const router = createBrowserRouter([
         Component: Home,
       },
       {
+        path: "/rider",
+        Component: RiderPage,
+        loader: () => fetch("/serviceCenter.json").then((res) => res.json()),
+      },
+      {
         path: "/coverage",
         loader: () => fetch("/serviceCenter.json").then((res) => res.json()),
         element: <Coverage></Coverage>,
@@ -29,7 +39,7 @@ export const router = createBrowserRouter([
       {
         path: "/SendParcel",
         element: <SendParcel></SendParcel>,
-        loader: () => fetch("./serviceCenter.json").then((res) => res.json()),
+        loader: () => fetch("/serviceCenter.json").then((res) => res.json()),
       },
     ],
   },
@@ -49,7 +59,11 @@ export const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Dashboard></Dashboard>,
+    element: (
+      <PrivateRoute>
+        <Dashboard></Dashboard>
+      </PrivateRoute>
+    ),
     children: [
       {
         path: "myParcel",
@@ -66,6 +80,22 @@ export const router = createBrowserRouter([
       {
         path: "payment-history",
         element: <PaymentHistory></PaymentHistory>,
+      },
+      {
+        path: "approve-riders",
+        element: (
+          <AdminRoute>
+            <ApproveRiders></ApproveRiders>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "users-management",
+        element: (
+          <AdminRoute>
+            <UsersManagement></UsersManagement>
+          </AdminRoute>
+        ),
       },
     ],
   },

@@ -1,12 +1,29 @@
 import React from "react";
 import useAuth from "../../Firebase/Context/useAuth/useAuth";
+import { useLocation, useNavigate } from "react-router";
+import useAxiosSecure from "../../../Hooks/AxiosSecure/useAxiosSecure";
 
 const SocialLogin = () => {
   const { googleLoginProvider } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
 
   const handleGoogleLogin = () => {
     googleLoginProvider()
-      .then()
+      .then((result) => {
+        const userInfo = {
+          email: result.user.email,
+          displayName: result.user.displayName,
+          photoURL: result.user.photoURL,
+        };
+
+        axiosSecure.post("/users", userInfo).then(() => {
+          console.log("users data added to the database");
+        });
+
+        navigate(location.state || "/");
+      })
       .catch((err) => {
         console.log(err);
       });
