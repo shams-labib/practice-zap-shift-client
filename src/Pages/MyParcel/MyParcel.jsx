@@ -5,6 +5,7 @@ import useAxiosSecure from "../../Hooks/AxiosSecure/useAxiosSecure";
 import { FaMagnifyingGlass, FaTrashCan } from "react-icons/fa6";
 import { FiEdit } from "react-icons/fi";
 import Swal from "sweetalert2";
+import { Link } from "react-router";
 
 const MyParcel = () => {
   const axiosSecure = useAxiosSecure();
@@ -69,6 +70,7 @@ const MyParcel = () => {
               <th>Parcel Name</th>
               <th>Cost</th>
               <th>Payment</th>
+              <th>Tracking ID</th>
               <th>Delivery Status</th>
               <th>Actions</th>
             </tr>
@@ -92,7 +94,13 @@ const MyParcel = () => {
                     </button>
                   )}
                 </td>
-                <td>Blue</td>
+                <td>
+                  <Link to={`/parcel-track/${parcel.trackingId}`}>
+                    {parcel.trackingId}
+                  </Link>
+                </td>
+                <td>{parcel.deliveryStatus}</td>
+
                 <td>
                   <button className="btn btn-square hover:bg-primary">
                     <FaMagnifyingGlass></FaMagnifyingGlass>

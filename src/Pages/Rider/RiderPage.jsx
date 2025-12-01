@@ -71,6 +71,7 @@ const Rider = () => {
               Rider Email
             </label>
             <input
+              readOnly
               {...register("email")}
               defaultValue={user?.email}
               type="text"

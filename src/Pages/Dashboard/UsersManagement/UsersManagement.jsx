@@ -1,18 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
-import useAuth from "../../Firebase/Context/useAuth/useAuth";
+import React, { useState } from "react";
+// import useAuth from "../../Firebase/Context/useAuth/useAuth";
 import useAxiosSecure from "../../../Hooks/AxiosSecure/useAxiosSecure";
 import { FaUserShield } from "react-icons/fa";
 import { FiShieldOff } from "react-icons/fi";
 import Swal from "sweetalert2";
 
 const UsersManagement = () => {
-  const { user } = useAuth;
+  const [searchText, setSearchText] = useState("");
+  // const { user } = useAuth;
   const axiosSecure = useAxiosSecure();
   const { data: users = [], refetch } = useQuery({
-    queryKey: ["users", user?.email],
+    queryKey: ["users", searchText],
     queryFn: async () => {
-      const res = await axiosSecure.get("/users");
+      const res = await axiosSecure.get(`/users?searchText=${searchText}`);
       return res.data;
     },
   });
@@ -52,6 +53,34 @@ const UsersManagement = () => {
   return (
     <div>
       <h1 className="text-3xl font-semibold">Users Management</h1>
+
+      <div className="flex items-center justify-center my-8">
+        <label className="input outline-none">
+          <svg
+            className="h-[1em] opacity-50"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+          >
+            <g
+              strokeLinejoin="round"
+              strokeLinecap="round"
+              strokeWidth="2.5"
+              fill="none"
+              stroke="currentColor"
+            >
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.3-4.3"></path>
+            </g>
+          </svg>
+          <input
+            type="search"
+            onChange={(e) => setSearchText(e.target.value)}
+            className="outline-none"
+            required
+            placeholder="Search"
+          />
+        </label>
+      </div>
 
       <div className="overflow-x-auto">
         <table className="table">

@@ -1,9 +1,10 @@
 import React from "react";
 import { CiDeliveryTruck } from "react-icons/ci";
-import { FaMotorcycle, FaUser, FaUsers } from "react-icons/fa";
-import { MdHistory } from "react-icons/md";
+import { FaMotorcycle, FaTasks, FaUser, FaUsers } from "react-icons/fa";
+import { MdHistory, MdTaskAlt } from "react-icons/md";
 import { Link, Outlet } from "react-router";
 import useRole from "../Hooks/useRole/useRole";
+import { RiEBikeFill } from "react-icons/ri";
 
 const Dashboard = () => {
   const { role } = useRole();
@@ -91,24 +92,60 @@ const Dashboard = () => {
                 </button>
               </Link>
             </li>
-            {role === "admin" && (
+            {/* Payment History */}
+            <li>
+              <Link to={"/dashboard/payment-history"}>
+                {" "}
+                <button
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  data-tip="payment-history"
+                >
+                  <MdHistory size={20} />
+                  <span className="is-drawer-close:hidden">
+                    Payment History
+                  </span>
+                </button>
+              </Link>
+            </li>
+
+            {/* Rider Only Routes */}
+
+            {role === "rider" && (
               <>
-                {/* Payment History */}
                 <li>
-                  <Link to={"/dashboard/payment-history"}>
-                    {" "}
-                    <button
-                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                      data-tip="payment-history"
-                    >
-                      <MdHistory size={20} />
-                      <span className="is-drawer-close:hidden">
-                        Payment History
-                      </span>
-                    </button>
+                  <Link
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Assigned
+                     Deliveries"
+                    to={"/dashboard/assigned-deliveries"}
+                  >
+                    <FaTasks size={17} />
+
+                    <span className="is-drawer-close:hidden">
+                      Assigned Deliveries
+                    </span>
                   </Link>
                 </li>
+                <li>
+                  <Link
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Completed
+                     Deliveries"
+                    to={"/dashboard/completed-deliveries"}
+                  >
+                    <MdTaskAlt size={20} />
 
+                    <span className="is-drawer-close:hidden">
+                      Completed Deliveries
+                    </span>
+                  </Link>
+                </li>
+              </>
+            )}
+
+            {/* Admin only routes */}
+            {role === "admin" && (
+              <>
                 <li>
                   <Link
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
@@ -119,6 +156,19 @@ const Dashboard = () => {
 
                     <span className="is-drawer-close:hidden">
                       Approved Riders
+                    </span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip=" Assign Riders"
+                    to={"/dashboard/assign-riders"}
+                  >
+                    <RiEBikeFill size={17} />
+
+                    <span className="is-drawer-close:hidden">
+                      Assign Riders
                     </span>
                   </Link>
                 </li>
